@@ -1,0 +1,134 @@
+<!-- c.html (Payment Confirmation Page) -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Payment Confirmation</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #e0f7fa, #ffffff);
+      margin: 0;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      
+    }
+
+    .form-box {
+      background: white;
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+      max-width: 500px;
+      width: 100%;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+      text-align: center;
+      color: #111827;
+    }
+
+    label {
+      display: block;
+      margin: 10px 0 5px;
+      font-weight: 600;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      margin-bottom: 20px;
+    }
+
+    .checkbox {
+      display: flex;
+      align-items: center;
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
+
+    .checkbox input {
+      margin-right: 10px;
+    }
+
+    button {
+      background: #2563eb;
+      color: white;
+      border: none;
+      padding: 14px;
+      width: 100%;
+      border-radius: 10px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background: #1e40af;
+    }
+  </style>
+</head>
+<body>
+  <div class="form-box">
+    <h2>Confirm Payment</h2>
+    <form id="confirmForm">
+      <label>Amount Sent (₦)</label>
+      <input type="number" id="amount" required>
+
+      <label>Exact Time of Transfer</label>
+      <input type="datetime-local" required>
+
+      <label>Bank Name</label>
+      <select required>
+        <option value="">Select your bank</option>
+        <option>GTBank</option>
+        <option>Access Bank</option>
+        <option>Zenith Bank</option>
+        <option>UBA</option>
+        <option>PALMPAY</option>
+        <option>OPAY</option>
+        <option>KUDA</option>
+        <option>...</option>
+      </select>
+
+      <label>Sender Account Name</label>
+      <input type="text" required>
+
+      <label>Last 4 Digits of Account Number</label>
+      <input type="text" maxlength="4" required>
+
+      <!-- <label>Transaction Reference</label>
+      <input type="text" required> -->
+
+      <label>Upload Screenshot</label>
+      <input type="file" accept="image/*, .pdf">
+
+      <div class="checkbox">
+        <input type="checkbox" required>
+        <label>I confirm the above information is accurate.</label>
+      </div>
+
+      <button type="submit">Submit & Continue</button>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById('confirmForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const amount = document.getElementById('amount').value;
+      localStorage.setItem('pendingAmount', amount);
+      localStorage.setItem('confirmTime', new Date().getTime());
+      window.location.href = 'wallet.html';
+    });
+  </script>
+</body>
+</html>
+

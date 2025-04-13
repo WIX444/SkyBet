@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Withdraw</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #f0f4f8, #d9e4f5);
+      margin: 0;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    .withdraw-box {
+      background: white;
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+      width: 90%;
+      max-width: 500px;
+      text-align: center;
+    }
+
+    h2 {
+      color: #1e293b;
+      margin-bottom: 20px;
+    }
+
+    input, button {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border-radius: 12px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+    }
+
+    button {
+      background: #facc15;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background: #eab308;
+    }
+
+    .error {
+      color: red;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="withdraw-box">
+    <h2>Withdraw</h2>
+    <input type="text" id="accountDetails" placeholder="Bank - account number - full name" />
+    <input type="number" id="withdrawAmount" placeholder="Enter Amount to Withdraw" />
+    <button onclick="processWithdrawal()">Submit</button>
+    <div id="errorMessage" class="error"></div>
+  </div>
+
+  <script>
+    const codes = [
+      "74636544OOFFs", "82475391AAFFq", "23461872DDEEw", "43161762RRPPp", "62718492WWEEs", "83527190MMNNb",
+      "92534718GGHHk", "10362841FFMMv", "47392015XXZZl", "63928174YYZZu", "29583746CCAAj", "56748120ZZFFt",
+      "83716294RRPPd", "18627385MMNNs", "74920613BBLLi", "94275830KKRRm", "65738492NNFFo", "12893647JJKKq",
+      "48321062TTMMa", "72648530SSPPb", "83921574HHUUx", "50712863VVSSr", "31459672GGNNz", "94716230UUHHw",
+      "52063981FFZZy", "41672093MMUUd", "53987164BBWWm", "82564713XXSSv", "94038725LLXXq", "16752839OOJJw",
+      "82639175VVLLk", "93715682NNFFs", "48762095HHSSz", "67483921XXOOt", "53672840LLZZx", "61948735VVNNp",
+      "40258319JJSSr", "24763918MMEEv", "53987102SSLLb", "68729453PPMMw", "73694817ZZSSm", "95027163GGFFq",
+      "68259130LLZZj", "85674219TTFFp", "53908467VVBBk", "20475913NNMMr", "78536420CCUUq", "83745912MMNNl",
+      "10784356JJXXi", "61938475SSYYm"
+    ];
+
+    let usedCodes = JSON.parse(localStorage.getItem("usedCodes")) || [];
+
+    function getRandomCode() {
+      const availableCodes = codes.filter(code => !usedCodes.includes(code));
+      if (availableCodes.length === 0) {
+        alert("No more unique codes available.");
+        return null;
+      }
+      const randomCode = availableCodes[Math.floor(Math.random() * availableCodes.length)];
+      usedCodes.push(randomCode);
+      localStorage.setItem("usedCodes", JSON.stringify(usedCodes));
+      return randomCode;
+    }
+
+    function processWithdrawal() {
+      const accountDetails = document.getElementById("accountDetails").value;
+      const withdrawAmount = parseFloat(document.getElementById("withdrawAmount").value);
+      const currentBalance = parseFloat(localStorage.getItem('balance') || 0);
+      const errorMessage = document.getElementById("errorMessage");
+
+      if (isNaN(withdrawAmount) || withdrawAmount <= 0) {
+        errorMessage.textContent = "Please enter a valid withdrawal amount.";
+        return;
+      }
+
+      if (withdrawAmount > currentBalance) {
+        errorMessage.textContent = "Insufficient balance!";
+        return;
+      }
+
+      const code = getRandomCode();
+      if (!code) return;
+
+      // Reduce the balance
+      localStorage.setItem('balance', currentBalance - withdrawAmount);
+
+      // Send the account details and code to WhatsApp
+      const whatsappLink = `https://wa.me/2349118456720?text=Account%20Details%3A%20${encodeURIComponent(accountDetails)}%0AWithdrawal%20Amount%3A%20₦${withdrawAmount.toFixed(2)}%0ACode%3A%20${code}`;
+      window.open(whatsappLink, "_blank");
+    }
+  </script>
+
+</body>
+</html>

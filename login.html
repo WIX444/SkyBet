@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        body {
+            background: linear-gradient(45deg, #3498db, #8e44ad);
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            color: white;
+        }
+        .container {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 40px;
+            border-radius: 10px;
+            width: 350px;
+            box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+        h2 {
+            margin-bottom: 20px;
+        }
+        .input-field {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: none;
+            font-size: 16px;
+        }
+        .btn {
+            width: 100%;
+            padding: 12px;
+            background-color: #27ae60;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #2ecc71;
+        }
+        .telegram-btn {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #0088cc;
+            color: white;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+        .telegram-btn:hover {
+            background-color: #00aaff;
+        }
+        .error {
+            color: red;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Login</h2>
+        <form id="loginForm">
+            <input type="email" id="loginEmail" class="input-field" placeholder="Email Address" required>
+            <input type="password" id="loginPassword" class="input-field" placeholder="Password" required>
+            <button type="submit" class="btn">Login</button>
+        </form>
+
+        <!-- <a href="https://t.me/+qAlUAB0xEJ04Mjk0" class="telegram-btn" target="_blank">Join Our Telegram Group</a> -->
+
+        <p class="error" id="errorMessage"></p>
+    </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const loginEmail = document.getElementById('loginEmail').value;
+            const loginPassword = document.getElementById('loginPassword').value;
+
+            // Retrieve details from localStorage
+            const savedEmail = localStorage.getItem('email');
+            const savedPassword = localStorage.getItem('password');
+
+            // Validate login credentials
+            if (loginEmail === savedEmail && loginPassword === savedPassword) {
+                // Login successful, redirect to home
+                window.location.href = 'dashboard.html';
+            } else {
+                // Display error message
+                document.getElementById('errorMessage').textContent = 'Incorrect email or password. Please try again.';
+            }
+        });
+    </script>
+
+</body>
+</html>

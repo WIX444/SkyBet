@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Number Validation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f7f7f7;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 350px;
+        }
+
+        h1 {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        input {
+            width: 80%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        input:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+
+        button {
+            width: 80%;
+            padding: 12px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        #message {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .correct {
+            color: green;
+        }
+
+        .wrong {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Enter a Mixed Number</h1>
+        <input type="text" id="userInput" placeholder="Enter the number">
+        <button onclick="checkNumber()">Check</button>
+        <div id="message"></div>
+    </div>
+
+    <script>
+        // Generate 50 mixed numbers for validation
+        const mixedNumbers = [
+            '74636544OOFFs', '82475391AAFFq', '23461872DDEEw', '43161762RRPPp', '62718492WWEEs',
+            '83527190MMNNb', '92534718GGHHk', '10362841FFMMv', '47392015XXZZl', '63928174YYZZu',
+            '29583746CCAAj', '56748120ZZFFt', '83716294RRPPd', '18627385MMNNs', '74920613BBLLi',
+            '94275830KKRRm', '65738492NNFFo', '12893647JJKKq', '48321062TTMMa', '72648530SSPPb',
+            '83921574HHUUx', '50712863VVSSr', '31459672GGNNz', '94716230UUHHw', '52063981FFZZy',
+            '41672093MMUUd', '53987164BBWWm', '82564713XXSSv', '94038725LLXXq', '16752839OOJJw',
+            '82639175VVLLk', '93715682NNFFs', '48762095HHSSz', '67483921XXOOt', '53672840LLZZx',
+            '61948735VVNNp', '40258319JJSSr', '24763918MMEEv', '53987102SSLLb', '68729453PPMMw',
+            '73694817ZZSSm', '95027163GGFFq', '68259130LLZZj', '85674219TTFFp', '53908467VVBBk',
+            '20475913NNMMr', '78536420CCUUq', '83745912MMNNl', '10784356JJXXi', '61938475SSYYm'
+        ];
+
+        // Function to check if the input matches one of the mixed numbers
+        function checkNumber() {
+            const userInput = document.getElementById('userInput').value;
+            const messageDiv = document.getElementById('message');
+
+            if (mixedNumbers.includes(userInput)) {
+                messageDiv.textContent = 'Correct! You entered a valid number.';
+                messageDiv.className = 'correct';
+            } else {
+                messageDiv.textContent = 'Wrong! Wrong! Wrong!';
+                messageDiv.className = 'wrong';
+            }
+        }
+    </script>
+</body>
+</html>
